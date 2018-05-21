@@ -5,3 +5,5 @@
 .idea/tradingApp.iml
 .idea/workspace.xml
 server/node_modules/
+trading-app/node_modules/
+trading-app/.gitignore

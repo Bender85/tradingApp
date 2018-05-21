@@ -6,13 +6,13 @@ const mongoose = require('mongoose');
 
 // include routes example
 
-// const productRoutes = require("./api/routes/products");
+const tradeRoutes = require("./api/routes/trade");
 // const orderRoutes = require("./api/routes/orders");
 // const userRoutes = require('./api/routes/user');
 
 // connect to database (mongoDB)
 
-const dbUrl = 'mongodb://localhost:27017/trading'
+const dbUrl = 'mongodb://localhost:27017/trading';
 
 mongoose.connect(dbUrl);
 mongoose.Promise = global.Promise;
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   });
 
 // Routes which should handle requests
-// app.use("/products", productRoutes);
+app.use("/trades", tradeRoutes);
 // app.use("/orders", orderRoutes);
 // app.use("/user", userRoutes);
 
