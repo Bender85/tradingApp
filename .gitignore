@@ -1,9 +1,4 @@
-
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/tradingApp.iml
-.idea/workspace.xml
+.idea/
 server/node_modules/
 trading-app/node_modules/
 trading-app/.gitignore
