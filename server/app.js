@@ -6,15 +6,17 @@ const mongoose = require('mongoose');
 
 // include routes example
 
-const tradeRoutes = require("./api/routes/trade");
+// const tradeRoutes = require("./api/routes/trade");
 // const orderRoutes = require("./api/routes/orders");
 // const userRoutes = require('./api/routes/user');
+
+const uloadRoutes = require('./api/routes/upload');
 
 // connect to database (mongoDB)
 
 const dbUrl = 'mongodb://localhost:27017/trading';
 
-mongoose.connect(dbUrl);
+// mongoose.connect(dbUrl);
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
@@ -36,9 +38,11 @@ app.use((req, res, next) => {
   });
 
 // Routes which should handle requests
-app.use("/trades", tradeRoutes);
+// app.use("/trades", tradeRoutes);
 // app.use("/orders", orderRoutes);
 // app.use("/user", userRoutes);
+
+app.use("/file", uloadRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

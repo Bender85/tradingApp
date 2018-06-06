@@ -1,0 +1,4 @@
+export const uploadConstants = {
+    DOCUMENT_SUCCESS: 'UPLOAD_DOCUMENT_SUCCESS',
+    DOCUMENT_FAIL: 'UPLOAD_DOCUMENT_FAIL'
+};

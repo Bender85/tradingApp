@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './helpers';
 import Trading from './components/trading';
+import UploadFiles from './components/uploader';
 import './App.css';
+
+import openSocket from 'socket.io-client';
+const  socket = openSocket('http://localhost:3001');
 
 class App extends Component {
   render() {
@@ -16,6 +20,7 @@ class App extends Component {
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
                 <Trading />
+                <UploadFiles />
             </div>
         </Provider>
     );
