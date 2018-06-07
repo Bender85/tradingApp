@@ -2,15 +2,20 @@ import { uploadConstants } from '../constants';
 
 export function uploads(state = {}, action) {
     switch (action.type) {
-        case uploadConstants.DOCUMENT_SUCCESS:
+        case uploadConstants.UPLOAD_REQUEST:
+            return {
+              loading: true,
+              file: action.file
+            };
+        case uploadConstants.UPLOAD_SUCCESS:
             return {
                 loading: true,
                 file: action.file
             };
-        case uploadConstants.DOCUMENT_FAIL:
+        case uploadConstants.UPLOAD_FAIL:
             return {
                 loading: false,
-                file: action.file
+                file: null
             };
         default:
             return state

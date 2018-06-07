@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
+import { aploadActions } from '../actions/uploads.actions';
+import {store} from "../helpers/store";
 
 class UpladFiles extends Component {
     constructor(props) {
         super(props);
-        // state = '';
-    };
+        this.state = {
+            uploadStatus: false
+        };
+        this.handleUpload = this.handleUpload.bind(this);
+    }
 
-    uploadFile = (event) => {
-        const fileData = new FormData();
-        fileData.append('file', event.target.files[0]);
-        fileData.append('name', event.target.files[0].name);
-        // fileData.append('description', 'some value user types');
-        console.log(event.target.files[0]);
-    };
+
+    handleUpload(ev) {
+        ev.preventDefault();
+
+        const data = new FormData();
+        data.append('file', this.uploadInput.files[0]);
+        // data.append('filename', this.fileName.value);
+        const { dispatch } = this.props;
+        dispatch({ type: 'UPLOAD_SUCCESS', payload: data });
+
+        axios.post('http://localhost:3001/file/upload', data)
+            .then(function (response) {
+                this.setState({uploadStatus: true });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     render() {
         return (
-            <div className="input-group">
-                <div className="custom-file">
-                    <input type="file" className="custom-file-input" id="inputGroupFile04" onChange={this.uploadFile} />
-                        <label className="custom-file-label" htmlFor="inputGroupFile04">Choose file</label>
-                </div>
-                <div className="input-group-append">
-                    <button className="btn btn-outline-secondary" type="button">Upload</button>
-                </div>
+            <div className="container">
+                <form onSubmit={this.handleUpload}>
+                    <div className="form-group">
+                        <input className="form-control" ref={(ref) => {
+                            this.uploadInput = ref;
+                        }} type="file"/>
+                    </div>
+
+                    <button className="btn btn-success" type>Upload</button>
+
+                </form>
             </div>
         );
     }
