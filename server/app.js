@@ -11,12 +11,13 @@ const mongoose = require('mongoose');
 // const userRoutes = require('./api/routes/user');
 
 const uloadRoutes = require('./api/routes/upload');
+const uploadTrade = require('./api/routes/trade');
 
 // connect to database (mongoDB)
 
 const dbUrl = 'mongodb://localhost:27017/trading';
 
-// mongoose.connect(dbUrl);
+mongoose.connect(dbUrl);
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));

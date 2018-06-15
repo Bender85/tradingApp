@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const tradingSchema = new Schema({},{ strict : false }); // если сохранять данные как есть
+const tradingSchema = new Schema({},{ strict : false }); // если сохранять данные как есть
 
 const dataSchema = new Schema({
     tsexchange: String,
@@ -22,4 +22,4 @@ const parseSchema = new Schema({
     data: [dataSchema]
 });
 
-module.exports = mongoose.model('Parse', parseSchema);
+module.exports = mongoose.model('Parse', tradingSchema);

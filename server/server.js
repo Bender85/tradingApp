@@ -8,6 +8,9 @@ const server = http.createServer(app);
 
 const io = socketIo(server);
 
+
+module.exports = io;
+
 io.on('connection', client => {
     console.log(`User ${client.id} connected!`);
 
