@@ -7,7 +7,24 @@ const outApi = 'https://api.cryptonator.com/api/full/btc-usd';
 
 const Trade = require('../models/trade');
 
-axois.get(outApi)
+const requestAndUpdate = setInterval(() => {
+    axois.get(outApi)
+        .then((response) => {
+            const tradeData = response.data;
+            const trade = new Trade(tradeData);
+            Trade.update({}, tradeData, {overwrite: true, upsert: true}, function(error, doc) {
+                console.log(doc);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}, 20000);
+
+// Old solution
+
+
+// axois.get(outApi)
     // .then((res) => {
     //     // console.log(req.data);
     //     const tradeData = res.data;
@@ -25,23 +42,33 @@ axois.get(outApi)
     // .catch(function (error) {
     //     console.log(error);
     // });
-    .then((response) => {
-        const tradeData = response.data;
-        const trade = new Trade(tradeData);
-        trade
-        .save()
-        .then((doc) => {
-            console.log("Сохранен объект", doc);
-            mongoose.disconnect();  // отключение от базы данных
-        })
-        .catch((err) => {
-            console.log(err);
-            mongoose.disconnect();
-        });
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+    // .then((response) => {
+    //     const tradeData = response.data;
+    //     const trade = new Trade(tradeData);
+    //     Trade.update({}, trade, {upsert: true}, function(error, doc) {
+    //         console.log(doc);
+    //     });
+    //     // Trade.count({}, function (err, count){
+    //     //     if(count > 0){
+    //     //         //document exists });
+    //     //         console.log('update')
+    //     //     } else {
+    //     //         trade
+    //     //         .save()
+    //     //         .then((doc) => {
+    //     //             console.log("Сохранен объект", doc);
+    //     //             mongoose.disconnect();  // отключение от базы данных
+    //     //         })
+    //     //         .catch((err) => {
+    //     //             console.log(err);
+    //     //             mongoose.disconnect();
+    //     //         });
+    //     //     }
+    //     // });
+    // })
+    // .catch((error) => {
+    //     console.log(error);
+    // });
 
 // const tradesController = require('../controllers/trades');
 
