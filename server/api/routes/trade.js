@@ -19,7 +19,11 @@ const requestAndUpdate = setInterval(() => {
         .catch((error) => {
             console.log(error);
         });
-}, 20000);
+}, 30000);
+
+Trade.find({}, null, {sort: 'критерий сортировки'},function (err, res) {
+    console.log (res); //вот здесь будут все документы
+});
 
 // Old solution
 
