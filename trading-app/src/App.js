@@ -8,6 +8,11 @@ import './App.css';
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:3001');
 
+socket.on('fileData', function (data) {
+    console.log(data);
+    // socket.emit('my other event', { my: 'data' });
+});
+
 class App extends Component {
   render() {
     return (

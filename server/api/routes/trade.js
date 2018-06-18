@@ -7,6 +7,8 @@ const outApi = 'https://api.cryptonator.com/api/full/btc-usd';
 
 const Trade = require('../models/trade');
 
+const socket = require('../../server');
+
 const requestAndUpdate = setInterval(() => {
     axois.get(outApi)
         .then((response) => {
@@ -15,19 +17,35 @@ const requestAndUpdate = setInterval(() => {
             Trade.update({}, tradeData, {overwrite: true, upsert: true}, function(error, doc) {
                 console.log(doc);
             });
+            Trade.find({}, null, {sort: 'критерий сортировки'},function (err, res) {
+                console.log (res); //вот здесь будут все документы
+                socket.emit('fileData', res);
+            });
         })
         .catch((error) => {
             console.log(error);
         });
 }, 30000);
 
-Trade.find({}, null, {sort: 'критерий сортировки'},function (err, res) {
-    console.log (res); //вот здесь будут все документы
-});
+// Trade.find({}, null, {sort: 'критерий сортировки'},function (err, res) {
+//     console.log (res); //вот здесь будут все документы
+// });
 
 // Old solution
 
+socket.on('connection', client => {
+    console.log(`User ${client.id} connected!`);
+    // Trade.find({}, null, {sort: 'критерий сортировки'},function (err, res) {
+    //     console.log (res); //вот здесь будут все документы
+    //     client.emit('fileData', res);
+    // });
 
+    // client.on('loadData', handleLoad);
+
+    client.on('disconnect', () => {
+        console.log(`user: ${client.id} disconnected!`);
+    })
+});
 // axois.get(outApi)
     // .then((res) => {
     //     // console.log(req.data);

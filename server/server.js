@@ -11,15 +11,17 @@ const io = socketIo(server);
 
 module.exports = io;
 
-io.on('connection', client => {
-    console.log(`User ${client.id} connected!`);
+require('./api/routes/trade');
 
-    // client.on('loadData', handleLoad);
-
-    client.on('disconnect', () => {
-        console.log(`user: ${client.id} disconnected!`);
-    })
-});
+// io.on('connection', client => {
+//     console.log(`User ${client.id} connected!`);
+//
+//     // client.on('loadData', handleLoad);
+//
+//     client.on('disconnect', () => {
+//         console.log(`user: ${client.id} disconnected!`);
+//     })
+// });
 
 server.listen(port, (err) => {
     if (err) throw err;
